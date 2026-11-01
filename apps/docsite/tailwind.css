@@ -1,12 +1,12 @@
 @import 'tailwindcss';
-@import 'shadcn-semi-design/styles';
+@import 'semi-design-plus/styles';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* scan the docs demos and the library sources (the inlined library entry's
  * own relative @source no longer resolves after @import) */
 @source './demos';
-@source '../packages/ui/src';
+@source '../packages/semi-design-plus/src';
 
 /* Semi surfaces */
 :where(:root) {

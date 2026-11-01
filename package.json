@@ -11,8 +11,7 @@
     "lint:fix": "rslint --fix packages",
     "format": "oxfmt -c oxfmt.config.ts .",
     "format:check": "oxfmt -c oxfmt.config.ts --check .",
-    "dev:docs": "pnpm --filter docs dev",
-    "dev:docs:src": "pnpm --filter docs dev:src",
+    "dev:docsite": "pnpm --filter=@semi-design-plus/docsite dev",
     "test:browser": "rstest --config=rstest.browser.config.mts"
   },
   "dependencies": {
