@@ -11,17 +11,18 @@
  *   3. Animation utilities (tw-animate-css)
  *   5. Theme mapping: shadcn variables -> Semi variables + fixed radius scale
  */
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @import "./semi-tokens.css";
 @import "./base.css";
-@import "tw-animate-css";
 
 /*
  * Register this package's sources for Tailwind's class scanning — components
  * are self-contained (utilities live in the TSX) and live outside the
  * consumer app's own source tree.
  */
-@source "../";
+/*@source "../";*/
 
 @custom-variant dark (&:is(.dark *));
 

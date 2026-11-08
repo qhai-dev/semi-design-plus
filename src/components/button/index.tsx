@@ -9,13 +9,16 @@ import { cn } from "cn";
 import { LoaderCircle } from "lucide-react";
 
 /**
- * 按钮组件：用于触发一个即时操作。
+ * 按钮用于触发页面内的即时操作（提交、确认、切换等）。
+ * 页面导航请使用链接组件而不是按钮。
  *
  * API 沿用 shadcn/ui 的 `variant` × `size` 组合，视觉规格对齐 Semi Design：
  * - 基础：32px 高、3px 圆角、14px/20px semibold、100ms 颜色过渡
  * - solid 类变体的 hover/active 使用 Semi primary-hover/active token
  * - focus-visible：2px 实线 outline（语义色 light-active）
  * - disabled：保留 `not-allowed` 光标（不用 pointer-events-none）
+ *
+ * @summary 触发页面内的即时操作；页面跳转用链接组件
  */
 export const buttonVariants = cva(
     "inline-flex shrink-0 items-center justify-center gap-2 rounded-sm text-sm leading-5 font-semibold whitespace-nowrap outline-none select-none transition-colors duration-100 cursor-pointer disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-primary-light-active [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",

@@ -70,12 +70,23 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** 基础用法：主操作按钮，对应 Semi `<Button theme="solid" type="primary">`。 */
+/**
+ * 主操作按钮，一个视图内最多出现一个（如表单提交、弹窗确认）。
+ * 对应 Semi `<Button theme="solid" type="primary">`。
+ *
+ * @summary 主操作按钮
+ */
 export const Default: Story = {
     args: { children: "Click me" },
 };
 
-/** 六种 `variant` 一览，与 Semi `theme` + `type` 的对应关系见上方 API 表。 */
+/**
+ * 六种视觉风格的权重阶梯，按语义选型：主操作用 primary(default)，
+ * 次要用 secondary/outline，弱操作用 ghost/link，删除等危险操作用 destructive。
+ * 与 Semi `theme` + `type` 的对应关系见上方 API 表。
+ *
+ * @summary 按语义选择视觉风格
+ */
 export const Variants: Story = {
     render: () => (
         <div className="flex flex-wrap items-center gap-3">
@@ -89,7 +100,12 @@ export const Variants: Story = {
     ),
 };
 
-/** `size` 与高度的对应关系（24 / 32 / 40px），末尾是方形图标按钮。 */
+/**
+ * 高度阶梯（24 / 32 / 40px）：表单内控件用 default，紧凑工具栏用 xs/sm，
+ * 页头主操作用 lg；纯图标按钮选 icon* 系列（必须带 `aria-label`）。
+ *
+ * @summary 按场景选择尺寸阶梯
+ */
 export const Sizes: Story = {
     render: () => (
         <div className="flex flex-wrap items-center gap-3">
@@ -104,12 +120,22 @@ export const Sizes: Story = {
     ),
 };
 
-/** `loading`：显示旋转图标、不可点击，并带有 `aria-busy="true"`。 */
+/**
+ * 异步提交进行中的占位：显示旋转图标、拦截点击，防止重复提交。
+ * 使用时不需要再叠加 `disabled`——loading 已隐含禁用。
+ *
+ * @summary 异步进行中，防重复提交
+ */
 export const Loading: Story = {
     args: { loading: true, children: "Saving…" },
 };
 
-/** 禁用态：各变体的 disabled 颜色与 `not-allowed` 光标。 */
+/**
+ * 不可用态：权限不足或前置条件未满足时使用。
+ * 保留 `not-allowed` 光标，让用户明白是按钮被禁用而非页面无响应。
+ *
+ * @summary 条件不满足时的不可用态
+ */
 export const Disabled: Story = {
     render: () => (
         <div className="flex items-center gap-3">
@@ -124,7 +150,12 @@ export const Disabled: Story = {
     ),
 };
 
-/** 图标 + 文字组合。纯图标按钮（`size="icon*"`）必须带 `aria-label`。 */
+/**
+ * 图标增强识别：操作含义可用图标表达时优先图标 + 文字（装饰性图标加 `aria-hidden`）。
+ * 纯图标按钮（`size="icon*"`）没有文字，必须补 `aria-label`。
+ *
+ * @summary 图标与文字的组合规则
+ */
 export const WithIcon: Story = {
     render: () => (
         <div className="flex items-center gap-3">
@@ -138,7 +169,12 @@ export const WithIcon: Story = {
     ),
 };
 
-/** 交互测试：点击触发 `onClick` 并获得焦点（由 test-runner 自动执行）。 */
+/**
+ * 交互回归用例：点击应触发 `onClick` 并把焦点移到按钮上。
+ * 由 test-runner 自动执行，同时作为 play 函数的编写示例。
+ *
+ * @summary 点击交互的回归用例
+ */
 export const InteractiveClick: Story = {
     args: { children: "Interactive", onClick: fn() },
     play: async ({ args }) => {
