@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { Button, buttonVariants } from "./index";
 
@@ -14,7 +14,7 @@ describe("Button", () => {
 
   it("calls onClick when clicked", async () => {
     const user = userEvent.setup();
-    const onClick = rstest.fn();
+    const onClick = vi.fn();
     render(<Button onClick={onClick}>Go</Button>);
     await user.click(screen.getByRole("button", { name: "Go" }));
     expect(onClick).toHaveBeenCalledOnce();
@@ -22,7 +22,7 @@ describe("Button", () => {
 
   it("ignores clicks when disabled", async () => {
     const user = userEvent.setup();
-    const onClick = rstest.fn();
+    const onClick = vi.fn();
     render(
       <Button disabled onClick={onClick}>
         Nope
@@ -77,7 +77,7 @@ describe("Button", () => {
 
   it("shows a spinner and disables interaction while loading", async () => {
     const user = userEvent.setup();
-    const onClick = rstest.fn();
+    const onClick = vi.fn();
     render(
       <Button loading onClick={onClick}>
         Save

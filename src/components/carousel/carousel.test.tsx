@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import type { CarouselApi } from "./index";
 import {
   Carousel,
@@ -69,8 +69,8 @@ describe("Carousel", () => {
     };
     renderCarousel({ dots: false, setApi });
     const api = apiRef.current!;
-    const scrollNext = rstest.spyOn(api, "scrollNext");
-    const scrollPrev = rstest.spyOn(api, "scrollPrev");
+    const scrollNext = vi.spyOn(api, "scrollNext");
+    const scrollPrev = vi.spyOn(api, "scrollPrev");
     fireEvent.keyDown(screen.getByRole("region"), { key: "ArrowRight" });
     fireEvent.keyDown(screen.getByRole("region"), { key: "ArrowLeft" });
     expect(scrollNext).toHaveBeenCalledOnce();
@@ -84,7 +84,7 @@ describe("Carousel", () => {
     };
     renderCarousel({ setApi });
     const api = apiRef.current!;
-    const scrollTo = rstest.spyOn(api, "scrollTo");
+    const scrollTo = vi.spyOn(api, "scrollTo");
     fireEvent.click(screen.getByRole("button", { name: "Go to slide 2" }));
     expect(scrollTo).toHaveBeenCalledWith(1);
   });

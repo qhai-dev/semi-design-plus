@@ -1,6 +1,6 @@
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "@rstest/core";
+import { describe, expect, it } from "vitest";
 import { CircleCheck } from "lucide-react";
 import {
   Trace,

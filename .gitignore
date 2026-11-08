@@ -6,9 +6,3 @@ dist/
 
 # macOS
 .DS_Store
-
-# log
-*.log*
-
-# storybook
-storybook-static

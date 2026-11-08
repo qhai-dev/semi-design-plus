@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { Radio, RadioGroup, RadioGroupItem } from "./index";
 
@@ -85,7 +85,7 @@ describe("RadioGroup", () => {
 
   it("ignores clicks on disabled options", async () => {
     const user = userEvent.setup();
-    const onValueChange = rstest.fn();
+    const onValueChange = vi.fn();
     render(
       <RadioGroup onValueChange={onValueChange}>
         <Radio value="a" aria-label="A" />
@@ -103,7 +103,7 @@ describe("RadioGroup", () => {
 
   it("stays on the controlled value while reporting changes", async () => {
     const user = userEvent.setup();
-    const onValueChange = rstest.fn();
+    const onValueChange = vi.fn();
     render(
       <RadioGroup value="a" onValueChange={onValueChange}>
         <Radio value="a" aria-label="A" />

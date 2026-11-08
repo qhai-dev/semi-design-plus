@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { Switch } from "./index";
 
@@ -13,7 +13,7 @@ describe("Switch", () => {
 
   it("toggles on click and reports onCheckedChange", async () => {
     const user = userEvent.setup();
-    const onCheckedChange = rstest.fn();
+    const onCheckedChange = vi.fn();
     render(<Switch aria-label="wifi" onCheckedChange={onCheckedChange} />);
     const sw = screen.getByRole("switch", { name: "wifi" });
     expect(sw).toHaveAttribute("aria-checked", "false");
@@ -56,7 +56,7 @@ describe("Switch", () => {
 
   it("ignores clicks when disabled and greys out", async () => {
     const user = userEvent.setup();
-    const onCheckedChange = rstest.fn();
+    const onCheckedChange = vi.fn();
     render(
       <Switch disabled aria-label="locked" onCheckedChange={onCheckedChange} />,
     );
@@ -94,7 +94,7 @@ describe("Switch", () => {
 
   it("stays off in controlled mode while reporting changes", async () => {
     const user = userEvent.setup();
-    const onCheckedChange = rstest.fn();
+    const onCheckedChange = vi.fn();
     render(
       <Switch checked={false} aria-label="ctl" onCheckedChange={onCheckedChange} />,
     );

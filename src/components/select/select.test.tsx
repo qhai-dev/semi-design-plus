@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import {
   Select,
@@ -56,7 +56,7 @@ describe("Select", () => {
 
   it("opens the popup on click and closes after picking an item", async () => {
     const user = userEvent.setup();
-    const onValueChange = rstest.fn();
+    const onValueChange = vi.fn();
     render(<BasicSelect onValueChange={onValueChange} />);
     await user.click(screen.getByRole("combobox", { name: "fruit" }));
     const option = await screen.findByRole("option", { name: "Banana" });
@@ -187,7 +187,7 @@ describe("Select", () => {
 });
 
 async function waitForHighlight(option: HTMLElement) {
-  await rstest.waitFor(() => {
+  await vi.waitFor(() => {
     expect(option).toHaveAttribute("data-highlighted");
   });
 }

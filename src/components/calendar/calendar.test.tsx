@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { Calendar } from "./index";
 
@@ -25,8 +25,8 @@ describe("Calendar", () => {
 
   it("selects a day on click and reports it via onSelect", async () => {
     const user = userEvent.setup();
-    const onDayClick = rstest.fn();
-    const onSelect = rstest.fn();
+    const onDayClick = vi.fn();
+    const onSelect = vi.fn();
     const shared = {
       mode: "single" as const,
       defaultMonth: new Date(2026, 9, 1),

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { Button } from "../button";
 import {
@@ -65,7 +65,7 @@ describe("Dialog", () => {
 
   it("renders footer actions and calls onOk", async () => {
     const user = userEvent.setup();
-    const onOk = rstest.fn();
+    const onOk = vi.fn();
     renderDialog(
       <DialogFooter>
         <DialogClose render={<Button variant="outline">Cancel</Button>} />

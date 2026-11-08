@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import {
   Sidebar,
@@ -107,7 +107,7 @@ describe("Sidebar", () => {
 
   it("invokes onClick handlers passed to the trigger", async () => {
     const user = userEvent.setup();
-    const onClick = rstest.fn();
+    const onClick = vi.fn();
     render(
       <SidebarProvider>
         <SidebarTrigger onClick={onClick} />

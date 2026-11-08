@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import {
   AlertDialog,
@@ -69,7 +69,7 @@ describe("AlertDialog", () => {
 
   it("closes via Cancel and keeps the dialog open for Action", async () => {
     const user = userEvent.setup();
-    const onDelete = rstest.fn();
+    const onDelete = vi.fn();
     render(
       <AlertDialog>
         <AlertDialogTrigger>Delete</AlertDialogTrigger>

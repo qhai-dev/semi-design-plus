@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "@rstest/core";
+import { describe, expect, it } from "vitest";
 import { Paperclip } from "lucide-react";
 import {
   Attachment,

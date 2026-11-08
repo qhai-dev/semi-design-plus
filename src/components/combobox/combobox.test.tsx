@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import {
   Combobox,
@@ -96,7 +96,7 @@ describe("Combobox", () => {
 
   it("calls onValueChange when an item is picked and closes the popup", async () => {
     const user = userEvent.setup();
-    const onValueChange = rstest.fn();
+    const onValueChange = vi.fn();
     render(<TriggerCombobox onValueChange={onValueChange} />);
     await user.click(screen.getByRole("combobox", { name: "fruit" }));
     await user.click(await screen.findByRole("option", { name: "Banana" }));
@@ -122,7 +122,7 @@ describe("Combobox", () => {
 
   it("selects with the keyboard (ArrowDown to move, Enter to confirm)", async () => {
     const user = userEvent.setup();
-    const onValueChange = rstest.fn();
+    const onValueChange = vi.fn();
     render(<TriggerCombobox onValueChange={onValueChange} />);
     const trigger = screen.getByRole("combobox", { name: "fruit" });
     await user.click(trigger);

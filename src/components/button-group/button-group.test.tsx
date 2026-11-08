@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { Button } from "../button";
 import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "./index";
@@ -7,7 +7,7 @@ import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "./index";
 describe("ButtonGroup", () => {
   it("renders a group with members keeping their own clicks", async () => {
     const user = userEvent.setup();
-    const onClick = rstest.fn();
+    const onClick = vi.fn();
     render(
       <ButtonGroup>
         <Button onClick={onClick}>One</Button>

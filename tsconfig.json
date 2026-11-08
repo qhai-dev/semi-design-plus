@@ -19,6 +19,6 @@
     },
     "include": [
         "src",
-        "rstest.matchers.d.ts"
+        "vitest.setup.ts"
     ]
 }

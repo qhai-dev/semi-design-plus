@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, afterEach, describe, expect, it } from "@rstest/core";
+import { vi, afterEach, describe, expect, it } from "vitest";
 import { CHART_COLORS, ChartContainer, ChartTooltipContent } from "./index";
 
 const tooltipPayload = [
@@ -15,7 +15,7 @@ const tooltipPayload = [
 // jsdom reports a 0x0 box, which makes recharts ResponsiveContainer unmount its
 // children; pretend the container has a real size for chart-content tests.
 function mockChartSize(width = 480, height = 240) {
-  rstest.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue({
+  vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue({
     width,
     height,
     top: 0,
@@ -29,7 +29,7 @@ function mockChartSize(width = 480, height = 240) {
 }
 
 afterEach(() => {
-  rstest.restoreAllMocks();
+  vi.restoreAllMocks();
 });
 
 describe("Chart", () => {

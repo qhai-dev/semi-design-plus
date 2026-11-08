@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { describe, expect, it } from "@rstest/core";
+import { describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./index";
 

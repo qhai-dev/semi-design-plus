@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { Input } from "./index";
 
@@ -58,7 +58,7 @@ describe("Input", () => {
 
   it("clears the value via the clearable button", async () => {
     const user = userEvent.setup();
-    const onChange = rstest.fn();
+    const onChange = vi.fn();
     render(<Input clearable defaultValue="text" onChange={onChange} />);
     const el = screen.getByDisplayValue("text") as HTMLInputElement;
     expect(el).toHaveValue("text");

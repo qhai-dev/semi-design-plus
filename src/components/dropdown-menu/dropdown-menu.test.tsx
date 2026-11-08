@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import {
   DropdownMenu,
@@ -51,7 +51,7 @@ describe("DropdownMenu", () => {
 
   it("selects an item via onClick and closes", async () => {
     const user = userEvent.setup();
-    const onClick = rstest.fn();
+    const onClick = vi.fn();
     render(
       <DropdownMenu>
         <DropdownMenuTrigger>Menu</DropdownMenuTrigger>

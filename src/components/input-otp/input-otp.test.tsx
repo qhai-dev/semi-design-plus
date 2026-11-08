@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "./index";
 
@@ -52,7 +52,7 @@ describe("InputOtp", () => {
 
   it("moves the value and active cell forward while typing", async () => {
     const user = userEvent.setup();
-    const onComplete = rstest.fn();
+    const onComplete = vi.fn();
     const { input, slots } = renderOtp({ onComplete }, 4);
     await user.type(input, "12");
     expect(input).toHaveValue("12");

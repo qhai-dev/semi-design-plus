@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { Checkbox, CheckboxGroup } from "./index";
 
@@ -13,7 +13,7 @@ describe("Checkbox", () => {
 
   it("toggles on click and reports onCheckedChange", async () => {
     const user = userEvent.setup();
-    const onCheckedChange = rstest.fn();
+    const onCheckedChange = vi.fn();
     render(<Checkbox aria-label="agree" onCheckedChange={onCheckedChange} />);
     const cb = screen.getByRole("checkbox", { name: "agree" });
     expect(cb).not.toBeChecked();
@@ -34,7 +34,7 @@ describe("Checkbox", () => {
 
   it("ignores clicks when disabled", async () => {
     const user = userEvent.setup();
-    const onCheckedChange = rstest.fn();
+    const onCheckedChange = vi.fn();
     render(
       <Checkbox disabled aria-label="locked" onCheckedChange={onCheckedChange} />,
     );
@@ -64,7 +64,7 @@ describe("Checkbox", () => {
 
   it("stays unchecked in controlled mode while reporting changes", async () => {
     const user = userEvent.setup();
-    const onCheckedChange = rstest.fn();
+    const onCheckedChange = vi.fn();
     render(
       <Checkbox checked={false} aria-label="ctl" onCheckedChange={onCheckedChange} />,
     );
@@ -96,7 +96,7 @@ describe("Checkbox", () => {
   });
 
   it("supports the Semi group with vertical/horizontal gaps", () => {
-    const onValueChange = rstest.fn();
+    const onValueChange = vi.fn();
     const { rerender } = render(
       <CheckboxGroup defaultValue={["a"]} onValueChange={onValueChange}>
         <Checkbox value="a" aria-label="A" />
@@ -119,7 +119,7 @@ describe("Checkbox", () => {
 
   it("reports multi-value changes through CheckboxGroup", async () => {
     const user = userEvent.setup();
-    const onValueChange = rstest.fn();
+    const onValueChange = vi.fn();
     render(
       <CheckboxGroup defaultValue={["a"]} onValueChange={onValueChange}>
         <Checkbox value="a" aria-label="A" />

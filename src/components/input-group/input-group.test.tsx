@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { AtSign, Search } from "lucide-react";
 import {
@@ -55,7 +55,7 @@ describe("InputGroup", () => {
 
   it("passes props through InputGroupInput (data-slot, typing)", async () => {
     const user = userEvent.setup();
-    const onChange = rstest.fn();
+    const onChange = vi.fn();
     render(
       <InputGroup>
         <InputGroupInput placeholder="type here" onChange={onChange} />
@@ -103,7 +103,7 @@ describe("InputGroup", () => {
 
   it("triggers the addon button and keeps group focus on the input", async () => {
     const user = userEvent.setup();
-    const onClick = rstest.fn();
+    const onClick = vi.fn();
     render(
       <InputGroup>
         <InputGroupInput placeholder="search" />

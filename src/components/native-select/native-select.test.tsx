@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { NativeSelect, NativeSelectOptGroup, NativeSelectOption } from "./index";
 
@@ -25,7 +25,7 @@ describe("NativeSelect", () => {
 
   it("supports choosing an option and fires onChange", async () => {
     const user = userEvent.setup();
-    const onChange = rstest.fn();
+    const onChange = vi.fn();
     render(
       <NativeSelect aria-label="fruit" onChange={onChange}>
         <NativeSelectOption value="apple">Apple</NativeSelectOption>

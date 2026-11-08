@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { describe, it } from "@rstest/core";
+import { describe, it } from "vitest";
 import { Slider } from "./index";
 
 describe("Slider", () => {

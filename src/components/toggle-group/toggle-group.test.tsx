@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { ToggleGroup, ToggleGroupItem } from "./index";
 
@@ -60,7 +60,7 @@ describe("ToggleGroup", () => {
 
   it("reports the array value through onValueChange", async () => {
     const user = userEvent.setup();
-    const onValueChange = rstest.fn();
+    const onValueChange = vi.fn();
     render(
       <ToggleGroup multiple onValueChange={onValueChange}>
         <ToggleGroupItem value="a">A</ToggleGroupItem>
@@ -142,7 +142,7 @@ describe("ToggleGroup", () => {
 
   it("ignores clicks on a disabled item", async () => {
     const user = userEvent.setup();
-    const onValueChange = rstest.fn();
+    const onValueChange = vi.fn();
     render(
       <ToggleGroup onValueChange={onValueChange}>
         <ToggleGroupItem value="a" disabled>

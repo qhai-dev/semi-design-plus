@@ -23,7 +23,8 @@ src/styles/semi-tokens.css                 # Semi 原始色板 + 语义 token(�
 src/styles/base.css                        # data-* 自定义 variant、keyframes、动画 utility
 src/styles/index.css                       # 入口:@theme inline 把 shadcn 变量映射到 Semi 变量
 .storybook/                                # Storybook 9(react-vite + docs/themes/a11y)
-rstest.config.ts / rstest.setup.ts         # 单测(rstest + happy-dom + jest-dom)
+vitest.config.ts / vitest.setup.ts         # 单测(vitest + happy-dom + jest-dom)
+oxlint.config.ts                           # oxlint 配置(defineConfig,类型安全)
 rslib.config.ts                            # 构建(esm + dts)
 ```
 
@@ -34,11 +35,11 @@ rslib.config.ts                            # 构建(esm + dts)
 ## 常用命令
 
 ```bash
-pnpm test            # rstest run(全量)
-pnpm exec rstest run src/components/button/button.test.tsx   # 单文件
+pnpm test            # vitest run(全量)
+pnpm exec vitest run src/components/button/button.test.tsx   # 单文件
 pnpm test:watch
 pnpm typecheck       # tsc --noEmit
-pnpm lint            # rslint .
+pnpm lint            # oxlint -c oxlint.config.ts .
 pnpm format          # oxfmt
 pnpm build           # rslib build(esm + dts)
 pnpm storybook       # http://localhost:6006
@@ -63,13 +64,13 @@ pnpm test-storybook  # 跑所有 story 的 play 函数 + a11y
 
 ## 测试策略
 
-每个组件交付四件套:rstest 单测(断言 data-slot、variant 类名、交互、回调、a11y 基线,**禁止无断言的冒烟测试**)、stories(每个 variant/size/状态一个 story,至少一个带 `play` 交互函数)、test-storybook(playwright 驱动)、light/dark 视觉抽查。
+每个组件交付四件套:vitest 单测(断言 data-slot、variant 类名、交互、回调、a11y 基线,**禁止无断言的冒烟测试**)、stories(每个 variant/size/状态一个 story,至少一个带 `play` 交互函数)、test-storybook(playwright 驱动)、light/dark 视觉抽查。
 
-验收门槛:typecheck 通过、rstest 全绿、test-storybook 全绿、rslint 无 error。
+验收门槛:typecheck 通过、vitest 全绿、test-storybook 全绿、oxlint 无 error。
 
-- 单测用 **rstest**(`@rstest/core`,显式 `import { describe, it, expect, rstest }`,无 globals);mock 用 `rstest.fn()`(不是 vitest 的 `vi.fn()`)。
-- jest-dom 断言在 `rstest.setup.ts` 注册(`expect.extend`),类型由根目录 `rstest.matchers.d.ts` 接到 `@rstest/core` 的 `Assertion` 上。
-- 测试环境 happy-dom(配置见 `rstest.config.ts`)。
+- 单测用 **vitest**(显式 `import { describe, it, expect, vi } from "vitest"`,无 globals);mock 用 `vi.fn()`。
+- jest-dom 断言由 `vitest.setup.ts` 里 `import "@testing-library/jest-dom/vitest"` 注册,同时完成类型增强;`@testing-library/react` 的 `cleanup` 挂在全局 `afterEach`。
+- 测试环境 happy-dom;`vitest.config.ts` 用 `pool: "vmThreads"`(happy-dom 较重,每个 worker 只建一次环境,全量 15s → 11s)。
 
 Storybook a11y 规则刻意禁用了若干条(`color-contrast`、`nested-interactive`、`aria-required-children` 等),原因记录在 `.storybook/preview.ts` 注释里——不要随手重新开启。
 
@@ -81,6 +82,7 @@ Storybook a11y 规则刻意禁用了若干条(`color-contrast`、`nested-interac
 - `Avatar.Image` 在 happy-dom 永远不触发 load,只渲染 Fallback。
 - 断言类名时注意 `font-semibold`(600)而非 `font-bold`(700)。
 - **stories 的 meta 需要显式类型注解** `const meta: Meta<typeof X> = {...}`(`satisfies` 不够):rslib 生成 d.ts 时会对推断类型报 TS2742 不具名错误。
+- **oxlint 的 React Compiler 系新规则**(`react/refs`、`react/set-state-in-effect`、`react/immutability`)在 `src/internal/**` 与 carousel 里是刻意豁免的(见 `oxlint.config.ts` 注释),新增内部逻辑遇到这类警告同理处理,不要为消除警告重写既有实现。
 
 ## 样式的特殊约定
 

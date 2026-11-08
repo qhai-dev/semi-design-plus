@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { rstest, describe, expect, it } from "@rstest/core";
+import { vi, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { Toggle, toggleVariants } from "./index";
 
@@ -27,7 +27,7 @@ describe("Toggle", () => {
 
   it("reports onPressedChange", async () => {
     const user = userEvent.setup();
-    const onPressedChange = rstest.fn();
+    const onPressedChange = vi.fn();
     render(<Toggle aria-label="italic" onPressedChange={onPressedChange} />);
     await user.click(screen.getByRole("button", { name: "italic" }));
     expect(onPressedChange).toHaveBeenCalledOnce();
@@ -77,7 +77,7 @@ describe("Toggle", () => {
 
   it("ignores clicks when disabled", async () => {
     const user = userEvent.setup();
-    const onPressedChange = rstest.fn();
+    const onPressedChange = vi.fn();
     render(
       <Toggle disabled aria-label="nope" onPressedChange={onPressedChange}>
         N
