@@ -24,7 +24,6 @@ src/styles/index.css                       # 入口:@theme inline 把 shadcn 变
 .storybook/                                # Storybook 9(react-vite + docs/themes/a11y)
 vitest.config.ts / vitest.setup.ts         # 单测(vitest + happy-dom + jest-dom)
 oxlint.config.ts                           # oxlint 配置(defineConfig,类型安全)
-rslib.config.ts                            # 构建(esm + dts)
 ```
 
 `src/index.ts` 是唯一导出面,新增组件必须在此加 `export * from "./components/<name>"`。
@@ -36,17 +35,14 @@ rslib.config.ts                            # 构建(esm + dts)
 ```bash
 pnpm test            # vitest run(全量)
 pnpm exec vitest run src/components/button/button.test.tsx   # 单文件
-pnpm test:watch
-pnpm typecheck       # tsc --noEmit
-pnpm lint            # oxlint -c oxlint.config.ts .
-pnpm format          # oxfmt
-pnpm build           # rslib build(esm + dts)
+pnpm exec tsc --noEmit   # 类型检查(无独立脚本)
+pnpm lint            # oxlint(自动发现 oxlint.config.ts)
+pnpm fmt / fmt:check # oxfmt(自动发现 oxfmt.config.ts)
 pnpm storybook       # http://localhost:6006
-pnpm build-storybook
-pnpm test-storybook  # 跑所有 story 的 play 函数 + a11y
+pnpm exec test-storybook  # 跑所有 story 的 play 函数 + a11y
 ```
 
-注意:本仓库通过 `devEngines` 锁定 pnpm,直接 `npx` 会报 EBADDEVENGINES,用 `pnpm exec` 代替。
+注意:本仓库通过 `devEngines` 锁定 pnpm,直接 `npx` 会报 EBADDEVENGINES,用 `pnpm exec` 代替。仓库无构建流程(不做产物打包,消费方经 bundler 直接使用 `src/`),`dist/` 相关字段仅作预留。
 
 ## 组件实现约定(硬性规则)
 
@@ -82,7 +78,7 @@ Storybook a11y 规则刻意禁用了若干条(`color-contrast`、`nested-interac
 - **happy-dom + Tailwind**:带变体前缀的类在断言时要写完整字符串。
 - `Avatar.Image` 在 happy-dom 永远不触发 load,只渲染 Fallback。
 - 断言类名时注意 `font-semibold`(600)而非 `font-bold`(700)。
-- **stories 的 meta 需要显式类型注解** `const meta: Meta<typeof X> = {...}`(`satisfies` 不够):rslib 生成 d.ts 时会对推断类型报 TS2742 不具名错误。
+- **stories 的 meta 用显式类型注解** `const meta: Meta<typeof X> = {...}`,不用裸 `const meta = {}` + `satisfies`(推断类型引用深层依赖类型时编辑器体验差,且将来恢复构建流程生成 d.ts 会报 TS2742)。
 - **oxlint 的 React Compiler 系新规则**(`react/refs`、`react/set-state-in-effect`、`react/immutability`)在 `src/internal/**` 与 carousel 里是刻意豁免的(见 `oxlint.config.ts` 注释),新增内部逻辑遇到这类警告同理处理,不要为消除警告重写既有实现。
 
 ## 样式的特殊约定

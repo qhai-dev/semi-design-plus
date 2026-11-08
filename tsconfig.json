@@ -9,8 +9,7 @@
         "skipLibCheck": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "useDefineForClassFields": true,
-        "types": ["@rslib/core/types"]
+        "useDefineForClassFields": true
     },
     "include": ["src", "vitest.setup.ts"]
 }
