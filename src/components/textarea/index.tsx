@@ -1,11 +1,11 @@
 "use client";
 
-import { startTransition, useMemo, useOptimistic } from "react";
+import type { VariantProps } from "class-variance-authority";
+import type { ChangeEvent } from "react";
+
 import { cva } from "class-variance-authority";
 import { cn } from "cn";
-
-import type { ChangeEvent } from "react";
-import type { VariantProps } from "class-variance-authority";
+import { startTransition, useMemo, useOptimistic } from "react";
 
 export const textarea = cva(
     "relative pb-6 pt-2 resize-y field-sizing-content block w-full min-h-16 rounded-sm border border-transparent bg-muted px-3 text-sm leading-5 text-foreground outline-none cursor-text transition-colors duration-100 placeholder:text-text-2 hover:bg-muted-hover focus:border-focus-border focus:bg-muted disabled:cursor-not-allowed disabled:bg-disabled-fill disabled:text-disabled-foreground disabled:placeholder:text-disabled-foreground",
@@ -37,7 +37,10 @@ export interface TextareaProps
     extends React.ComponentProps<"textarea">, VariantProps<typeof textarea> {
     // showClear?: boolean;
     value?: string;
-    action?: (value: string, e: ChangeEvent<HTMLTextAreaElement>) => void | Promise<void>;
+    action?: (
+        value: string,
+        e: ChangeEvent<HTMLTextAreaElement>,
+    ) => void | Promise<void>;
 }
 
 function characterCount(str: string): number {
@@ -46,8 +49,11 @@ function characterCount(str: string): number {
     }
 
     if (typeof Intl.Segmenter === "function") {
-        const characterSegmenter = new Intl.Segmenter(undefined, { granularity: "grapheme" });
-        return [...characterSegmenter.segment(str)].map((s) => s.segment).length;
+        const characterSegmenter = new Intl.Segmenter(undefined, {
+            granularity: "grapheme",
+        });
+        return [...characterSegmenter.segment(str)].map((s) => s.segment)
+            .length;
     }
     return [...str].length;
 }

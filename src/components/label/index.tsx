@@ -1,5 +1,6 @@
 import type { LabelHTMLAttributes, ReactNode, Ref } from "react";
-import { cn } from "../../lib/cn";
+
+import { cn } from "cn";
 
 /**
  * shadcn Label API (bare <label>) with the Semi Design form label spec
@@ -12,55 +13,55 @@ import { cn } from "../../lib/cn";
  */
 
 export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
-  /** Renders the required `*` mark before the label text. */
-  required?: boolean;
-  /** Renders a grey "(optional)" hint after the label text. */
-  optional?: boolean;
-  /** Muted label text (Semi `.semi-form-field-label-disabled`). */
-  disabled?: boolean;
-  ref?: Ref<HTMLLabelElement>;
+    /** Renders the required `*` mark before the label text. */
+    required?: boolean;
+    /** Renders a grey "(optional)" hint after the label text. */
+    optional?: boolean;
+    /** Muted label text (Semi `.semi-form-field-label-disabled`). */
+    disabled?: boolean;
+    ref?: Ref<HTMLLabelElement>;
 }
 
 export function Label({
-  className,
-  required = false,
-  optional = false,
-  disabled = false,
-  children,
-  ...props
+    className,
+    required = false,
+    optional = false,
+    disabled = false,
+    children,
+    ...props
 }: LabelProps) {
-  return (
-    <label
-      data-slot="label"
-      data-disabled={disabled ? "" : undefined}
-      className={cn(
-        "flex select-none items-center text-sm leading-5 font-semibold text-foreground",
-        "peer-disabled:cursor-not-allowed peer-disabled:text-disabled-foreground",
-        disabled && "cursor-not-allowed text-disabled-foreground",
-        className,
-      )}
-      {...props}
-    >
-      {required && (
-        <span
-          data-slot="label-required"
-          aria-hidden
-          className="mr-1 font-semibold text-destructive"
+    return (
+        <label
+            data-slot="label"
+            data-disabled={disabled ? "" : undefined}
+            className={cn(
+                "flex select-none items-center text-sm leading-5 font-semibold text-foreground",
+                "peer-disabled:cursor-not-allowed peer-disabled:text-disabled-foreground",
+                disabled && "cursor-not-allowed text-disabled-foreground",
+                className,
+            )}
+            {...props}
         >
-          *
-        </span>
-      )}
-      {children as ReactNode}
-      {optional && (
-        <span
-          data-slot="label-optional"
-          className="ml-1 font-normal text-tertiary"
-        >
-          (optional)
-        </span>
-      )}
-    </label>
-  );
+            {required && (
+                <span
+                    data-slot="label-required"
+                    aria-hidden
+                    className="mr-1 font-semibold text-destructive"
+                >
+                    *
+                </span>
+            )}
+            {children as ReactNode}
+            {optional && (
+                <span
+                    data-slot="label-optional"
+                    className="ml-1 font-normal text-tertiary"
+                >
+                    (optional)
+                </span>
+            )}
+        </label>
+    );
 }
 
 Label.displayName = "Label";

@@ -1,10 +1,7 @@
 {
     "compilerOptions": {
         "target": "ES2022",
-        "lib": [
-            "DOM",
-            "ES2022"
-        ],
+        "lib": ["DOM", "ES2022"],
         "module": "ESNext",
         "moduleResolution": "bundler",
         "jsx": "react-jsx",
@@ -13,12 +10,7 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "useDefineForClassFields": true,
-        "types": [
-            "@rslib/core/types"
-        ]
+        "types": ["@rslib/core/types"]
     },
-    "include": [
-        "src",
-        "vitest.setup.ts"
-    ]
+    "include": ["src", "vitest.setup.ts"]
 }

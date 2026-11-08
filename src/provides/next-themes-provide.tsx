@@ -1,4 +1,6 @@
-import { ThemeProvider, ThemeProviderProps } from "next-themes";
+import type { ThemeProviderProps } from "next-themes";
+
+import { ThemeProvider } from "next-themes";
 
 export function NextThemesProvider({
     children,

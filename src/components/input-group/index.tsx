@@ -1,6 +1,8 @@
+import type { VariantProps } from "class-variance-authority";
+
+import { cva } from "class-variance-authority";
+import { cn } from "cn";
 import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../lib/cn";
 
 import { Button } from "../button";
 import { Input } from "../input";
@@ -44,8 +46,10 @@ const inputGroupAddonVariants = cva(
             align: {
                 "inline-start": "order-first",
                 "inline-end": "order-last",
-                "block-start": "order-first w-full self-auto justify-start border-b border-border",
-                "block-end": "order-last w-full self-auto justify-start border-t border-border",
+                "block-start":
+                    "order-first w-full self-auto justify-start border-b border-border",
+                "block-end":
+                    "order-last w-full self-auto justify-start border-t border-border",
             },
         },
         defaultVariants: {
@@ -76,20 +80,23 @@ function InputGroupAddon({
     );
 }
 
-const inputGroupButtonVariants = cva("flex items-center gap-2 text-sm shadow-none", {
-    variants: {
-        size: {
-            // Semi control heights: 24px inside the 32px group
-            xs: "h-6 gap-1 rounded-sm px-1.5 [&>svg:not([class*='size-'])]:size-3.5",
-            sm: "",
-            "icon-xs": "size-6 rounded-sm p-0",
-            "icon-sm": "size-8 p-0",
+const inputGroupButtonVariants = cva(
+    "flex items-center gap-2 text-sm shadow-none",
+    {
+        variants: {
+            size: {
+                // Semi control heights: 24px inside the 32px group
+                xs: "h-6 gap-1 rounded-sm px-1.5 [&>svg:not([class*='size-'])]:size-3.5",
+                sm: "",
+                "icon-xs": "size-6 rounded-sm p-0",
+                "icon-sm": "size-8 p-0",
+            },
+        },
+        defaultVariants: {
+            size: "xs",
         },
     },
-    defaultVariants: {
-        size: "xs",
-    },
-});
+);
 
 function InputGroupButton({
     className,
@@ -125,7 +132,10 @@ function InputGroupText({ className, ...props }: React.ComponentProps<"span">) {
     );
 }
 
-function InputGroupInput({ className, ...props }: React.ComponentProps<typeof Input>) {
+function InputGroupInput({
+    className,
+    ...props
+}: React.ComponentProps<typeof Input>) {
     return (
         <Input
             data-slot="input-group-control"
@@ -141,7 +151,10 @@ function InputGroupInput({ className, ...props }: React.ComponentProps<typeof In
     );
 }
 
-function InputGroupTextarea({ className, ...props }: React.ComponentProps<typeof TextArea>) {
+function InputGroupTextarea({
+    className,
+    ...props
+}: React.ComponentProps<typeof TextArea>) {
     return (
         <TextArea
             data-slot="input-group-control"

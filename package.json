@@ -20,24 +20,17 @@
         "./styles/*": "./src/styles/*"
     },
     "scripts": {
-        "build": "rslib build",
         "test": "vitest run",
-        "test:watch": "vitest",
-        "test-storybook": "test-storybook",
-        "test-storybook:ci": "storybook build -o storybook-static && http-server storybook-static --silent --port 6006 & wait-on http://127.0.0.1:6006 && test-storybook --url http://127.0.0.1:6006",
         "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build",
-        "typecheck": "tsc --noEmit",
-        "lint": "oxlint -c oxlint.config.ts .",
-        "lint:fix": "oxlint --fix -c oxlint.config.ts .",
-        "format": "oxfmt -c oxfmt.config.ts .",
-        "format:check": "oxfmt -c oxfmt.config.ts --check ."
+        "lint": "oxlint",
+        "lint:fix": "oxlint --fix",
+        "fmt": "oxfmt",
+        "fmt:check": "oxfmt --check"
     },
     "dependencies": {
         "@base-ui/react": "1.6.0",
         "@hookform/resolvers": "^6.0.2",
         "class-variance-authority": "^0.7.1",
-        "clsx": "^2.1.1",
         "cmdk": "^1.1.1",
         "cn": "^0.5.1",
         "embla-carousel-react": "^8.6.0",
@@ -49,7 +42,6 @@
         "react-resizable-panels": "^2.1.7",
         "recharts": "^3.8.0",
         "sonner": "^2.0.7",
-        "tailwind-merge": "^3.7.0",
         "tw-animate-css": "^1.3.0"
     },
     "devDependencies": {
@@ -58,6 +50,7 @@
         "@rslib/core": "^1.0.5",
         "@storybook/addon-a11y": "^9.0.0",
         "@storybook/addon-docs": "^9.1.21",
+        "@storybook/addon-mcp": "0.6.0",
         "@storybook/addon-themes": "^9.0.0",
         "@storybook/react-vite": "^9.0.0",
         "@storybook/test-runner": "^0.26.0",

@@ -1,170 +1,197 @@
-import * as React from "react";
 import { Command as CommandPrimitive } from "cmdk";
-import { cn } from "../../lib/cn";
-
+import { cn } from "cn";
 import { Check, Search } from "lucide-react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../dialog";
+import * as React from "react";
+
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+} from "../dialog";
 import { InputGroup, InputGroupAddon } from "../input-group";
 
-function Command({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>) {
-  return (
-    <CommandPrimitive
-      data-slot="command"
-      className={cn(
-        "rounded-xl bg-popover py-1 text-popover-foreground flex size-full flex-col overflow-hidden shadow-elevated",
-        className,
-      )}
-      {...props}
-    />
-  );
+function Command({
+    className,
+    ...props
+}: React.ComponentProps<typeof CommandPrimitive>) {
+    return (
+        <CommandPrimitive
+            data-slot="command"
+            className={cn(
+                "rounded-xl bg-popover py-1 text-popover-foreground flex size-full flex-col overflow-hidden shadow-elevated",
+                className,
+            )}
+            {...props}
+        />
+    );
 }
 
 function CommandDialog({
-  title = "Command Palette",
-  description = "Search for a command to run...",
-  children,
-  className,
-  showCloseButton = false,
-  ...props
+    title = "Command Palette",
+    description = "Search for a command to run...",
+    children,
+    className,
+    showCloseButton = false,
+    ...props
 }: Omit<React.ComponentProps<typeof Dialog>, "children"> & {
-  title?: string;
-  description?: string;
-  className?: string;
-  showCloseButton?: boolean;
-  children: React.ReactNode;
+    title?: string;
+    description?: string;
+    className?: string;
+    showCloseButton?: boolean;
+    children: React.ReactNode;
 }) {
-  return (
-    <Dialog {...props}>
-      <DialogHeader className="sr-only">
-        <DialogTitle>{title}</DialogTitle>
-        <DialogDescription>{description}</DialogDescription>
-      </DialogHeader>
-      <DialogContent
-        className={cn("rounded-xl! top-1/3 translate-y-0 overflow-hidden p-0", className)}
-        showCloseButton={showCloseButton}
-      >
-        {children}
-      </DialogContent>
-    </Dialog>
-  );
+    return (
+        <Dialog {...props}>
+            <DialogHeader className="sr-only">
+                <DialogTitle>{title}</DialogTitle>
+                <DialogDescription>{description}</DialogDescription>
+            </DialogHeader>
+            <DialogContent
+                className={cn(
+                    "rounded-xl! top-1/3 translate-y-0 overflow-hidden p-0",
+                    className,
+                )}
+                showCloseButton={showCloseButton}
+            >
+                {children}
+            </DialogContent>
+        </Dialog>
+    );
 }
 
 function CommandInput({
-  className,
-  ...props
+    className,
+    ...props
 }: React.ComponentProps<typeof CommandPrimitive.Input>) {
-  return (
-    <div data-slot="command-input-wrapper" className="px-3 pt-3 pb-2">
-      <InputGroup className="h-8! rounded-sm! bg-muted! transition-colors! has-focus-visible:border-focus-border">
-        <CommandPrimitive.Input
-          data-slot="command-input"
-          className={cn("w-full text-sm outline-hidden disabled:cursor-not-allowed", className)}
-          {...props}
-        />
-        <InputGroupAddon>
-          <Search aria-hidden className="size-4 shrink-0 text-text-2" />
-        </InputGroupAddon>
-      </InputGroup>
-    </div>
-  );
+    return (
+        <div data-slot="command-input-wrapper" className="px-3 pt-3 pb-2">
+            <InputGroup className="h-8! rounded-sm! bg-muted! transition-colors! has-focus-visible:border-focus-border">
+                <CommandPrimitive.Input
+                    data-slot="command-input"
+                    className={cn(
+                        "w-full text-sm outline-hidden disabled:cursor-not-allowed",
+                        className,
+                    )}
+                    {...props}
+                />
+                <InputGroupAddon>
+                    <Search
+                        aria-hidden
+                        className="size-4 shrink-0 text-text-2"
+                    />
+                </InputGroupAddon>
+            </InputGroup>
+        </div>
+    );
 }
 
-function CommandList({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.List>) {
-  return (
-    <CommandPrimitive.List
-      data-slot="command-list"
-      className={cn(
-        "no-scrollbar max-h-72 scroll-py-1 outline-none overflow-x-hidden overflow-y-auto",
-        className,
-      )}
-      {...props}
-    />
-  );
+function CommandList({
+    className,
+    ...props
+}: React.ComponentProps<typeof CommandPrimitive.List>) {
+    return (
+        <CommandPrimitive.List
+            data-slot="command-list"
+            className={cn(
+                "no-scrollbar max-h-72 scroll-py-1 outline-none overflow-x-hidden overflow-y-auto",
+                className,
+            )}
+            {...props}
+        />
+    );
 }
 
 function CommandEmpty({
-  className,
-  ...props
+    className,
+    ...props
 }: React.ComponentProps<typeof CommandPrimitive.Empty>) {
-  return (
-    <CommandPrimitive.Empty
-      data-slot="command-empty"
-      className={cn("py-6 text-center text-sm", className)}
-      {...props}
-    />
-  );
+    return (
+        <CommandPrimitive.Empty
+            data-slot="command-empty"
+            className={cn("py-6 text-center text-sm", className)}
+            {...props}
+        />
+    );
 }
 
 function CommandGroup({
-  className,
-  ...props
+    className,
+    ...props
 }: React.ComponentProps<typeof CommandPrimitive.Group>) {
-  return (
-    <CommandPrimitive.Group
-      data-slot="command-group"
-      className={cn(
-        "overflow-hidden px-0 py-1 text-foreground **:[[cmdk-group-heading]]:px-4 **:[[cmdk-group-heading]]:pt-2 **:[[cmdk-group-heading]]:pb-1 **:[[cmdk-group-heading]]:text-sm **:[[cmdk-group-heading]]:text-text-2",
-        className,
-      )}
-      {...props}
-    />
-  );
+    return (
+        <CommandPrimitive.Group
+            data-slot="command-group"
+            className={cn(
+                "overflow-hidden px-0 py-1 text-foreground **:[[cmdk-group-heading]]:px-4 **:[[cmdk-group-heading]]:pt-2 **:[[cmdk-group-heading]]:pb-1 **:[[cmdk-group-heading]]:text-sm **:[[cmdk-group-heading]]:text-text-2",
+                className,
+            )}
+            {...props}
+        />
+    );
 }
 
 function CommandSeparator({
-  className,
-  ...props
+    className,
+    ...props
 }: React.ComponentProps<typeof CommandPrimitive.Separator>) {
-  return (
-    <CommandPrimitive.Separator
-      data-slot="command-separator"
-      className={cn("my-1 h-px bg-border", className)}
-      {...props}
-    />
-  );
+    return (
+        <CommandPrimitive.Separator
+            data-slot="command-separator"
+            className={cn("my-1 h-px bg-border", className)}
+            {...props}
+        />
+    );
 }
 
 function CommandItem({
-  className,
-  children,
-  ...props
+    className,
+    children,
+    ...props
 }: React.ComponentProps<typeof CommandPrimitive.Item>) {
-  return (
-    <CommandPrimitive.Item
-      data-slot="command-item"
-      className={cn(
-        "relative flex h-9 cursor-default items-center gap-2.5 rounded-none px-4 py-2 text-sm text-foreground outline-none select-none data-selected:bg-muted data-selected:text-foreground data-selected:font-semibold [&_svg:not([class*='size-'])]:size-3 group/command-item data-[disabled=true]:text-disabled-foreground data-[disabled=true]:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-      <Check aria-hidden className="ml-auto size-3 text-primary opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100" />
-    </CommandPrimitive.Item>
-  );
+    return (
+        <CommandPrimitive.Item
+            data-slot="command-item"
+            className={cn(
+                "relative flex h-9 cursor-default items-center gap-2.5 rounded-none px-4 py-2 text-sm text-foreground outline-none select-none data-selected:bg-muted data-selected:text-foreground data-selected:font-semibold [&_svg:not([class*='size-'])]:size-3 group/command-item data-[disabled=true]:text-disabled-foreground data-[disabled=true]:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
+                className,
+            )}
+            {...props}
+        >
+            {children}
+            <Check
+                aria-hidden
+                className="ml-auto size-3 text-primary opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100"
+            />
+        </CommandPrimitive.Item>
+    );
 }
 
-function CommandShortcut({ className, ...props }: React.ComponentProps<"span">) {
-  return (
-    <span
-      data-slot="command-shortcut"
-      className={cn(
-        "ml-auto text-xs tracking-widest text-text-2",
-        className,
-      )}
-      {...props}
-    />
-  );
+function CommandShortcut({
+    className,
+    ...props
+}: React.ComponentProps<"span">) {
+    return (
+        <span
+            data-slot="command-shortcut"
+            className={cn(
+                "ml-auto text-xs tracking-widest text-text-2",
+                className,
+            )}
+            {...props}
+        />
+    );
 }
 
 export {
-  Command,
-  CommandDialog,
-  CommandInput,
-  CommandList,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-  CommandShortcut,
-  CommandSeparator,
+    Command,
+    CommandDialog,
+    CommandInput,
+    CommandList,
+    CommandEmpty,
+    CommandGroup,
+    CommandItem,
+    CommandShortcut,
+    CommandSeparator,
 };

@@ -1,4 +1,4 @@
-import { cn } from "../../lib/cn";
+import { cn } from "cn";
 
 /**
  * Keyboard key chip (no direct Semi counterpart, Semi border style):
@@ -8,27 +8,27 @@ import { cn } from "../../lib/cn";
  * - a 2px bottom border reads as the deeper bottom edge of a physical key
  */
 function Kbd({ className, ...props }: React.ComponentProps<"kbd">) {
-  return (
-    <kbd
-      data-slot="kbd"
-      className={cn(
-        "inline-flex h-6 min-w-6 cursor-default select-none items-center justify-center gap-1 rounded-sm border border-border border-b-2 bg-muted px-1.5 font-mono text-xs leading-4 text-foreground",
-        className,
-      )}
-      {...props}
-    />
-  );
+    return (
+        <kbd
+            data-slot="kbd"
+            className={cn(
+                "inline-flex h-6 min-w-6 cursor-default select-none items-center justify-center gap-1 rounded-sm border border-border border-b-2 bg-muted px-1.5 font-mono text-xs leading-4 text-foreground",
+                className,
+            )}
+            {...props}
+        />
+    );
 }
 
 /** Renders a combination of keys (Ctrl + K) with a 4px gap. */
 function KbdGroup({ className, ...props }: React.ComponentProps<"kbd">) {
-  return (
-    <kbd
-      data-slot="kbd-group"
-      className={cn("inline-flex items-center gap-1", className)}
-      {...props}
-    />
-  );
+    return (
+        <kbd
+            data-slot="kbd-group"
+            className={cn("inline-flex items-center gap-1", className)}
+            {...props}
+        />
+    );
 }
 
 export { Kbd, KbdGroup };

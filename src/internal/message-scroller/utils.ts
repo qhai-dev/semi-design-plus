@@ -1,11 +1,11 @@
 import * as React from "react";
 
 function useLatest<T>(value: T) {
-  const ref = React.useRef(value);
+    const ref = React.useRef(value);
 
-  ref.current = value;
+    ref.current = value;
 
-  return ref;
+    return ref;
 }
 
 export { useLatest };

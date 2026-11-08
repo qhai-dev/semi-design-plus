@@ -1,14 +1,18 @@
 import { defineConfig } from "oxlint";
 
 export default defineConfig({
-    plugins: ["typescript", "react", "react-hooks"],
-    ignorePatterns: [
-        "dist",
-        "node_modules",
-        "coverage",
-        "public",
-        "storybook-static",
-    ],
+    ignorePatterns: ["dist", "node_modules"],
+    plugins: ["typescript", "react", "react-hooks", "import"],
+    rules: {
+        // 类型一律独立 import type 导入,禁止 import { x, type Y } 内联写法:
+        // consistent-type-imports 管"纯 type 导入未用 import type",
+        // consistent-type-specifier-style 管"内联 type specifier 混在 value 导入里"
+        "typescript/consistent-type-imports": [
+            "error",
+            { prefer: "type-imports", fixStyle: "separate-type-imports" },
+        ],
+        "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
+    },
     globals: {
         process: "readonly",
         console: "readonly",

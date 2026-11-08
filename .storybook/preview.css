@@ -3,13 +3,13 @@
 
 /* Storybook canvas */
 #storybook-root {
-  padding: 24px 32px;
-  background: var(--semi-color-bg-0);
-  color: var(--semi-color-text-0);
-  font-family: var(--font-sans);
-  min-height: 100vh;
+    padding: 24px 32px;
+    background: var(--semi-color-bg-0);
+    color: var(--semi-color-text-0);
+    font-family: var(--font-sans);
+    min-height: 100vh;
 }
 
 .dark #storybook-root {
-  background: var(--semi-color-bg-0);
+    background: var(--semi-color-bg-0);
 }

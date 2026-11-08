@@ -1,14 +1,18 @@
+import type { VariantProps } from "class-variance-authority";
+import type {
+    HTMLInputTypeAttribute,
+    InputHTMLAttributes,
+    ReactNode,
+    Ref,
+} from "react";
+
 import { Input as InputPrimitive } from "@base-ui/react/input";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
+import { cn } from "cn";
 import { CircleAlert, TriangleAlert } from "lucide-react";
 import { useRef, useState } from "react";
 
-import { cn } from "cn";
-
-import type { HTMLInputTypeAttribute, InputHTMLAttributes, ReactNode, Ref } from "react";
-
 import { IconClean, IconEyeOpened, IconEyeClosedSolid } from "../../_icons";
-
 import { Button } from "../button";
 
 /**
@@ -142,14 +146,18 @@ export function Input({
 
     const isPassword = type === "password";
 
-    const filled = value !== undefined ? String(value).length > 0 : inner.length > 0;
+    const filled =
+        value !== undefined ? String(value).length > 0 : inner.length > 0;
 
-    const wrapped = Boolean(prefix || suffix || clearable || isPassword || type === "email");
+    const wrapped = Boolean(
+        prefix || suffix || clearable || isPassword || type === "email",
+    );
 
     const setRef = (node: HTMLInputElement | null) => {
         innerRef.current = node;
         if (typeof ref === "function") ref(node);
-        else if (ref) (ref as { current: HTMLInputElement | null }).current = node;
+        else if (ref)
+            (ref as { current: HTMLInputElement | null }).current = node;
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -199,10 +207,12 @@ export function Input({
                 className={cn(
                     inputBoxVariants({ size, validateStatus }),
                     "cursor-text",
-                    validateStatus === "default" && "focus:border-focus-border focus:bg-muted",
+                    validateStatus === "default" &&
+                        "focus:border-focus-border focus:bg-muted",
                     validateStatus === "error" &&
                         "aria-invalid:border-transparent aria-invalid:hover:bg-destructive-light-hover focus:border-destructive focus:bg-destructive-light",
-                    validateStatus === "warning" && "focus:border-warning focus:bg-warning-light",
+                    validateStatus === "warning" &&
+                        "focus:border-warning focus:bg-warning-light",
                     disabled && "cursor-not-allowed",
                     className,
                 )}
@@ -241,10 +251,16 @@ export function Input({
                 {...props}
             />
             {validateStatus === "error" && !suffix && (
-                <CircleAlert aria-hidden className="ml-2 size-4 shrink-0 text-destructive" />
+                <CircleAlert
+                    aria-hidden
+                    className="ml-2 size-4 shrink-0 text-destructive"
+                />
             )}
             {validateStatus === "warning" && !suffix && (
-                <TriangleAlert aria-hidden className="ml-2 size-4 shrink-0 text-warning" />
+                <TriangleAlert
+                    aria-hidden
+                    className="ml-2 size-4 shrink-0 text-warning"
+                />
             )}
             {clearable && filled && !disabled && <Clear />}
             {isPassword && (

@@ -18,7 +18,6 @@ src/components/<kebab-name>/<name>.test.tsx
 src/components/<kebab-name>/<name>.stories.tsx
 src/internal/<feature>/                    # 复杂组件的逻辑层(context/stores/hooks/geometry)
 src/internal/use-render/                    # base-ui useRender 的自制替代
-src/lib/cn.ts                              # twMerge(clsx(...)),全库唯一 className 合并入口
 src/styles/semi-tokens.css                 # Semi 原始色板 + 语义 token(生成物,勿手改)
 src/styles/base.css                        # data-* 自定义 variant、keyframes、动画 utility
 src/styles/index.css                       # 入口:@theme inline 把 shadcn 变量映射到 Semi 变量
@@ -52,7 +51,7 @@ pnpm test-storybook  # 跑所有 story 的 play 函数 + a11y
 ## 组件实现约定(硬性规则)
 
 1. **Token 优先**:颜色一律用映射出的 utility(`bg-primary`、`text-text-2`、`border-border`),圆角用 `rounded-*`(3/6/12px 刻度),**禁止裸 hex**。
-2. **`cn` 必须可覆盖**:消费者传入的 `className` 要能覆盖内置类(靠 `twMerge`)。
+2. **`cn` 必须可覆盖**:消费者传入的 `className` 要能覆盖内置类。统一 `import { cn } from "cn"`(shadcn-ui/cn 包,内置 clsx + tailwind-merge 语义,仓库不直接依赖 clsx/tailwind-merge)。
 3. **交互态四件套**:hover / active / focus-visible / disabled 全部实现;颜色过渡 100ms(`transition-colors duration-100`)。
 4. **焦点环**:用 Semi 实心主色 `--semi-color-focus-border`(#0064FA),不是半透明蓝。
 5. **禁用态**:用 `cursor-not-allowed`,**不用 `pointer-events-none`** 吞掉光标。
@@ -61,6 +60,8 @@ pnpm test-storybook  # 跑所有 story 的 play 函数 + a11y
 8. **图标**:显式 `import { X } from "lucide-react"`,禁止 `import * as LucideIcons`;装饰性图标加 `aria-hidden`。
 9. **无 `dark:` 颜色覆盖**:一切随 token 自动反转(结构性布局除外)。
 10. **文件命名**:`index.tsx` / `<name>.test.tsx` / `<name>.stories.tsx`。
+11. **import 排序**交给 oxfmt `sortImports` 自动处理(配置在 `oxfmt.config.ts`,采用生态标准分组,与 readmeio/官方默认一致):所有 `import type` 一组放最前,其后 内置→外部→内部别名→相对,组间空行。写新代码不必手调顺序,提交前跑 `pnpm format` 即可。
+12. **类型导入必须独立 `import type { X } from "..."`**,禁止内联 type specifier(`import { cva, type VariantProps }` 这种写法不允许)。由 oxlint 两条规则强制:`typescript/consistent-type-imports`(纯 type 导入必须用 import type)+ `import/consistent-type-specifier-style`(内联 type 必须拆到顶层),`pnpm lint:fix` 可自动修复。
 
 ## 测试策略
 
